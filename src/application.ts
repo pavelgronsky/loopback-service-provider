@@ -59,6 +59,7 @@ export class LoopbackServiceProviderApplication extends BootMixin(
 
   async migrateSchema(options?: SchemaMigrationOptions): Promise<void> {
     await super.migrateSchema(options);
+    
     const productsModelSchemaUpdate = new ProductsModelSchemaUpdate()
     await productsModelSchemaUpdate.startService();
   }

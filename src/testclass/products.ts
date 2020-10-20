@@ -17,7 +17,6 @@ export class ProductsModelSchemaUpdate {
         await this.runService()
       }
 
-
       async runService(){
         const skowronekService = await this.app.get<SkowronekService>(SkowronekServiceBinding.SKOWRONEK_SERVICE); 
         let skowronekServiceProp = await this.skowronekServiceProp.getTaxRuleGroup()
