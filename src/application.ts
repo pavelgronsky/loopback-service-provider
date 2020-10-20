@@ -9,13 +9,8 @@ import {RestApplication} from '@loopback/rest';
 import {ServiceMixin} from '@loopback/service-proxy';
 import path from 'path';
 import {MySequence} from './sequence';
-import {SkowronekProvider} from './services/skowronek.service';
-import {
-  SkowronekServiceBinding
-} from './authentication/keys';
-import {ProductsModelSchemaUpdate} from "./testclass/products"
-import {SkowronekRestDataSource} from "./datasources/externalSource/skowronek.datasource"
-
+import {Products} from './testclass/products';
+import {Skowronek} from './services';
 export {ApplicationConfig};
 
 export class LoopbackServiceProviderApplication extends BootMixin(
@@ -50,17 +45,20 @@ export class LoopbackServiceProviderApplication extends BootMixin(
     };
   }
 
-
   setUpBindings(): void {
-    //this.bind(SkowronekServiceBinding.SKOWRONEK_SERVICE).toProvider(SkowronekProvider)   
-    this.bind('datasources.config.skowronekRest').toClass(SkowronekRestDataSource)   
+    this.bind('migration.Products').toClass(Products);
   }
-
 
   async migrateSchema(options?: SchemaMigrationOptions): Promise<void> {
     await super.migrateSchema(options);
-    
-    const productsModelSchemaUpdate = new ProductsModelSchemaUpdate()
-    await productsModelSchemaUpdate.startService();
+    const skowronekService = await this.get<Skowronek>('services.Skowronek');
+    console.log(
+      'Inside application.ts ',
+      await skowronekService.getTaxRuleGroup(),
+    );
+    const productsModelSchemaUpdate = await this.get<Products>(
+      'migration.Products',
+    );
+    await productsModelSchemaUpdate.retrieveProducts();
   }
 }

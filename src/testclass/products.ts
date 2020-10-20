@@ -1,24 +1,20 @@
-import {inject, Context} from '@loopback/core';
-import { SkowronekService } from '../services';
-import {SkowronekServiceBinding} from '../authentication/keys';
-import {LoopbackServiceProviderApplication} from "../application"
+import {CoreBindings, inject} from '@loopback/core';
+import {LoopbackServiceProviderApplication} from '../application';
+import {SkowronekServiceBinding} from '../keys';
+import {Skowronek} from '../services';
 
-export class ProductsModelSchemaUpdate {
-  public app = new LoopbackServiceProviderApplication
+export class Products {
+  @inject(CoreBindings.APPLICATION_INSTANCE)
+  public app: LoopbackServiceProviderApplication;
 
-    @inject(SkowronekServiceBinding.SKOWRONEK_SERVICE)
-    public skowronekServiceProp: SkowronekService
+  @inject(SkowronekServiceBinding.SKOWRONEK_SERVICE)
+  public skowronekService: Skowronek;
 
-    constructor(
-      ) {}
-      
-      public async startService() {
-
-        await this.runService()
-      }
-
-      async runService(){
-        const skowronekService = await this.app.get<SkowronekService>(SkowronekServiceBinding.SKOWRONEK_SERVICE); 
-        let skowronekServiceProp = await this.skowronekServiceProp.getTaxRuleGroup()
-      }
+  async retrieveProducts() {
+    console.log(
+      'Inside products.ts ',
+      await this.skowronekService.getTaxRuleGroup(),
+    );
+    return this.skowronekService.getTaxRuleGroup();
+  }
 }
