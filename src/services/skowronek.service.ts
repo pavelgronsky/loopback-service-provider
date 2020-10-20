@@ -8,7 +8,7 @@ export interface SkowronekService {
 
 export class SkowronekProvider implements Provider<SkowronekService> {
   constructor(
-    @inject('datasources.config.skowronekRest')
+    @inject('datasources.skowronekRest')
     protected dataSource: SkowronekRestDataSource,
   ) { }
 

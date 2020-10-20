@@ -18,7 +18,7 @@ export class ProductsModelSchemaUpdate {
       }
 
       async runService(){
-        const skowronekService = await this.app.get<SkowronekService>(SkowronekServiceBinding.SKOWRONEK_SERVICE); 
+        const skowronekService = await this.app.get<SkowronekService>('datasources.config.skowronekRest'); 
         let skowronekServiceProp = await this.skowronekServiceProp.getTaxRuleGroup()
       }
 }
