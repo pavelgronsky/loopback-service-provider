@@ -1,1 +1,1 @@
-export * from './externalSource/skowronek.datasource';
+export * from './skowronek.datasource';

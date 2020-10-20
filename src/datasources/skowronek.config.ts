@@ -1,5 +1,4 @@
-
-const baseUrl = `http://FUI8IIQP28WE8JEZLJ8ICWRNCY99URG1@skowronek.milleniumhost.pl/api/`
+const baseUrl = `http://FUI8IIQP28WE8JEZLJ8ICWRNCY99URG1@skowronek.milleniumhost.pl/api/`;
 
 export const config = {
   name: 'skowronekRest',
@@ -24,6 +23,6 @@ export const config = {
       functions: {
         getTaxRuleGroup: [],
       },
-    }
-  ]
+    },
+  ],
 };
