@@ -1,0 +1,41 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [{
+            "type": "node",
+            "request": "launch",
+            "name": "Server auto reload",
+            "runtimeExecutable": "nodemon",
+            "program": "${workspaceFolder}/src/index.js",
+            "outFiles": [
+              "${workspaceFolder}/**/*.js"
+            ],
+            "env": {
+              "DEBUG": "loopback:connector:*"
+            },
+            "runtimeArgs": [
+              "run-script", "build:watch"
+            ],
+            "restart": true,
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "envFile": "${workspaceFolder}/.env.local"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Server",
+            "runtimeExecutable": "node",
+            "program": "${workspaceFolder}/src/index.ts",
+            "outFiles": [
+                "${workspaceFolder}/**/*.js"
+            ],
+            "restart": true,
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "envFile": "${workspaceFolder}/.env.local",
+        }
+    ]
+}
