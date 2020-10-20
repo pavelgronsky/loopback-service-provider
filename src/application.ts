@@ -4,7 +4,7 @@ import {
   RestExplorerBindings,
   RestExplorerComponent,
 } from '@loopback/rest-explorer';
-import {RepositoryMixin} from '@loopback/repository';
+import {RepositoryMixin, SchemaMigrationOptions} from '@loopback/repository';
 import {RestApplication} from '@loopback/rest';
 import {ServiceMixin} from '@loopback/service-proxy';
 import path from 'path';
@@ -14,6 +14,7 @@ import {
   SkowronekServiceBinding
 } from './authentication/keys';
 import {ProductsModelSchemaUpdate} from "./testclass/products"
+import {SkowronekRestDataSource} from "./datasources/externalSource/skowronek.datasource"
 
 export {ApplicationConfig};
 
@@ -24,8 +25,6 @@ export class LoopbackServiceProviderApplication extends BootMixin(
     super(options);
 
     this.setUpBindings();
-
-    this.runClass()
 
     // Set up the custom sequence
     this.sequence(MySequence);
@@ -53,11 +52,13 @@ export class LoopbackServiceProviderApplication extends BootMixin(
 
 
   setUpBindings(): void {
-    this.bind(SkowronekServiceBinding.SKOWRONEK_SERVICE).toProvider(SkowronekProvider)   
+    //this.bind(SkowronekServiceBinding.SKOWRONEK_SERVICE).toProvider(SkowronekProvider)   
+    this.bind('datasources.config.skowronekRest').toClass(SkowronekRestDataSource)   
   }
 
 
-  async runClass(){
+  async migrateSchema(options?: SchemaMigrationOptions): Promise<void> {
+    await super.migrateSchema(options);
     const productsModelSchemaUpdate = new ProductsModelSchemaUpdate()
     await productsModelSchemaUpdate.startService();
   }

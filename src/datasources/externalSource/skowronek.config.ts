@@ -1,5 +1,5 @@
 
-const baseUrl = `http://${process.env.SKOWRONEK_DB_KEY}@${process.env.SKOWRONEK_DB_URL}/api/`
+const baseUrl = `http://FUI8IIQP28WE8JEZLJ8ICWRNCY99URG1@skowronek.milleniumhost.pl/api/`
 
 export const config = {
   name: 'skowronekRest',
@@ -14,16 +14,16 @@ export const config = {
   },
   operations: [
     {
+      //Get VAT from tax_rule_groups
       template: {
         method: 'GET',
-        url:
-          `${baseUrl}orders?display=full&filter[date_upd]=>[{dateAdd}]&date=1&output_format=JSON`,
-        responsePath: '$.orders[*]',
-        fullResponse: false
+        url: `${baseUrl}tax_rule_groups?output_format=JSON&display=full`,
+        responsePath: '$.tax_rule_groups[*]',
+        fullResponse: false,
       },
       functions: {
-        getNewOrdersFullList: ['dateAdd'],
-      }
+        getTaxRuleGroup: [],
+      },
     }
   ]
 };

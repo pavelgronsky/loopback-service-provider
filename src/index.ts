@@ -5,7 +5,7 @@ export * from './application';
 export async function main(options: ApplicationConfig = {}) {
   const app = new LoopbackServiceProviderApplication(options);
   await app.boot();
-  await app.runClass()
+  await app.migrateSchema();
   await app.start();
 
   const url = app.restServer.url;
